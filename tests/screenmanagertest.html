@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+    <button id="btnTmp1">Template 1</button>
+    <button id="btnTmp2">Template 2</button>
+    <div class="container" data-bind="template: { name: templateName, data: data }"></div>
+
+    <script id="temp1" type="text/html">
+        <p>Template <span data-bind="text: value"></span></p>
+    </script>
+    <script id="temp2" type="text/html">
+        <p>En annen Template <span data-bind="text: value"></span></p>
+    </script>
+    <script id="temp3" src="testTemplate.html" type="text/html"></script>
+
+    <script src="../bower_components/knockout/dist/knockout.js"></script>
+    <script src="../static/js/ScreenManager.js"></script>
+    <script>
+        var screen1 = {
+            templateName: "temp1",
+            data: { value: 1 },
+            load: function () { console.log("temp1 load") },
+            unload: function () { console.log("temp1 unload") },
+            pause: function () { console.log("temp1 pause") },
+            resume: function () { console.log("temp1 resume")},
+        };
+
+
+        var screen2 = {
+            templateName: "temp3",
+            data: { value: 1 },
+            load: function () { console.log("temp2 load") },
+            unload: function () { console.log("temp2 unload") },
+            pause: function () { console.log("temp2 pause") },
+            resume: function () { console.log("temp2 resume")},
+        };
+
+
+        var sm = new Zed.ScreenManager(screen1, document.querySelector(".container"));
+
+
+        btnTmp1.addEventListener("click", function () {
+           if(sm.peek() != screen1) {
+               sm.popScreen();
+           }
+        });
+
+
+        btnTmp2.addEventListener("click", function () {
+            if(sm.peek() != screen2) {
+                sm.pushScreen(screen2);
+            }
+        });
+
+
+    </script>
+
+</body>
+</html>

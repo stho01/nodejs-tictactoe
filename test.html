@@ -1,0 +1,16 @@
+<head><title>Tic Tac Toe</title></head>
+<body>
+<div class="tic-tac-toe" data-bind="foreach: $data">
+    <div class="row" data-bind="foreach: $data">
+        <div class="cell" data-bind="css: 'active': isSet"></div>
+    </div>
+</div>
+<script src="/jquery/dist/jquery.js"></script>
+<script src="/knockout/dist/knockout.js"></script>
+<script src="/js/TickTackToe.js"></script>
+<script src="/knockout/dist/knockout.js"></script>
+<script>$(document).on("ready", function () {
+    var tictacktoe = new Oxx.TicTacToe(document.querySelector(".tic-tac-toe"));
+    tictacktoe.init();
+});</script>
+</body>

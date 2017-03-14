@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game</title>
+    <link href="/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <div class="bg bg--1">
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+    </div>
+    <div class="bg bg--2">
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+        <div class="bg-cell"></div>
+    </div>
+
+
+    <script id="menu-screen" type="text/html">
+        <div class="menu-screen">
+            <canvas id="c"></canvas>
+            <ul data-bind="foreach: mainMenu, click: onClick" class="main-menu">
+                <li data-bind="text: text"></li>
+            </ul>
+        </div>
+    </script>
+    <script id="game-screen" type="text/html">
+        <div>
+            <div data-bind="foreach: statusMessages" class="status-msg">
+                <div class="status-msg__msg">
+                    <time data-bind="text: '[' + timestamp + ']'"></time>
+                    <p data-bind="text: msg"></p>
+                </div>
+            </div>
+            <div class="game-panel">
+                <div class="you-are">
+                    You are <span></span>
+                </div>
+                <div class="game">
+                    <div class="tic-tac-toe" data-bind="foreach: boardData">
+                        <div class="cell" data-bind="cellCss, click: onClick"></div>
+                    </div>
+                    <div class="overlay"></div>
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+    <div class="container" data-bind="template: {
+        name: viewName,
+        data: viewModel,
+        afterRender: initProxy
+        }"></div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/jquery/dist/jquery.js"></script>
+    <script src="/knockout/dist/knockout.js"></script>
+    <script src="/js/Constants.js"></script>
+    <script src="/js/Bindings.js"></script>
+    <script src="/js/Enums.js"></script>
+    <script src="/WinningTables.js"></script>
+    <script src="/js/screens/Screen.js"></script>
+    <script src="/js/screens/MenuScreen.js"></script>
+    <script src="/js/screens/GameScreen.js"></script>
+    <script src="/js/ScreenManager.js"></script>
+    <script src="/js/ClientGame.js"></script>
+    <script>
+        $(document).ready(function () {
+            var initialScreen = new Zed.MenuScreen();
+            var sm = new Zed.ScreenManager(initialScreen, document.querySelector(".container"));
+        });
+    </script>
+
+</body>
+</html>
